@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>동글마미의 이빨 계산기</title>
+<meta name="description" content="첫 이가 난 개월수만 넣으면 나머지 이가 날 시기를 한 장 표로 계산해 줘요. 여러 연구를 종합한 참고용 추정이에요.">
+<meta name="theme-color" content="#FFF7E6">
+<link rel="canonical" href="https://ybybgo.github.io/tooth-calculator/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%B7%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="동글마미의 이빨 계산기">
+<meta property="og:description" content="첫 이가 난 개월수만 넣으면 나머지 이가 날 시기를 한 장 표로 계산해 줘요. 여러 연구를 종합한 참고용 추정이에요.">
+<meta property="og:url" content="https://ybybgo.github.io/tooth-calculator/">
+<meta property="og:image" content="https://ybybgo.github.io/tooth-calculator/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font:14px system-ui,sans-serif;background:#FFF7E6}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
+<style>
+/* 레이아웃: 모바일 한 열. 위쪽 입력 패널 → 한 화면 결과 카드(캡처용) → 계산 방법·유의사항 */
+:root{
+  --bg:#FFF7E6; --panel:#FFFFFF; --ink:#16130F; --muted:#6B5A46; --line:#E8DCC4; --focus:#111111;
+  --label-bg:#111111; --label-ink:#FFFFFF; --neon:#39FF14; --yellow:#FFE819; --red:#D7263D;
+  --on-pastel:#16130F;
+  --c-central:#FFC9D6; --c-lateral:#FFE566; --c-canine:#B9F27C; --c-m1:#A9D8FF; --c-m2:#D5C2FF;
+  --card-bg:#FFF7E6; --card-ink:#16130F; --card-muted:#6B5A46; --card-line:#E4D7BD; --card-black:#111111;
+  --f-display:'Yeon Sung','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --f-body:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#17140F; --panel:#221E17; --ink:#F5EFE2; --muted:#B8AB94; --line:#3A3224; --focus:#F5EFE2; --label-bg:#F5EFE2; --label-ink:#16130F; color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --bg:#17140F; --panel:#221E17; --ink:#F5EFE2; --muted:#B8AB94; --line:#3A3224; --focus:#F5EFE2; --label-bg:#F5EFE2; --label-ink:#16130F; color-scheme:dark; }
+
+*{box-sizing:border-box}
+body.focus{padding-block:10px 4px}
+body.focus .wrap{gap:8px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:18px 40px}
+.wrap{max-width:460px;margin-inline:auto;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;margin:0;text-wrap:balance}
+h1{font-size:30px;line-height:1.2}
+h2{font-size:21px}
+p{margin:0}
+.muted{color:var(--muted)}
+.hl{background:var(--label-bg);color:var(--label-ink);border-radius:14px;padding:.12em .55em;display:inline-block}
+.hl b{font-weight:400;color:var(--neon)}
+[data-theme="dark"] .hl b, :root:not([data-theme="light"]) .hl b{color:#1B7A0A}
+@media (prefers-color-scheme: light){ .hl b{color:var(--neon)} }
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.field > label,.field > .lbl{font-weight:700;font-size:14px}
+input[type=text],input[type=number],input[type=date]{width:100%;min-height:46px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);padding:8px 12px;font:inherit;font-size:16px}
+input:focus-visible,button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--bg);border:1.5px solid var(--line);border-radius:14px;padding:4px}
+.seg button,.chips button{min-height:44px;border:0;border-radius:10px;background:transparent;color:var(--ink);font:inherit;font-size:15px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--label-bg);color:var(--label-ink)}
+.stepper{display:grid;grid-template-columns:56px 1fr 56px;gap:8px;align-items:center}
+.stepper button{min-height:56px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font-size:28px;line-height:1;cursor:pointer}
+.stepper .val{display:flex;align-items:baseline;justify-content:center;gap:6px;border:2px solid var(--ink);border-radius:14px;min-height:56px;padding:0 8px}
+.stepper input{border:0;background:transparent;text-align:center;font-family:var(--f-display);font-size:34px;width:5.2ch;min-height:0;padding:0;color:var(--ink)}
+.stepper .unit{font-family:var(--f-display);font-size:20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1.5px solid var(--line);background:var(--bg);padding:6px 14px;min-width:56px}
+.chips button[aria-pressed=true]{background:var(--yellow);border-color:#16130F;color:var(--on-pastel)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.note{font-size:13px;color:var(--muted)}
+.warn{font-size:13px;color:var(--red)}
+details{border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+details > summary{cursor:pointer;padding:14px 16px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:10px;min-height:48px;align-items:center}
+details > summary::after{content:"+";font-size:22px;line-height:1}
+details[open] > summary::after{content:"–"}
+details > .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;font-size:14px}
+.known{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.known label{display:flex;flex-direction:column;gap:4px;font-size:13px;min-width:0}
+.known .tag{display:inline-block;border-radius:8px;padding:1px 8px;color:var(--on-pastel);border:1.5px solid #2B2118;font-size:13px;align-self:flex-start}
+.btn{min-height:50px;border-radius:14px;border:2px solid var(--ink);background:var(--label-bg);color:var(--label-ink);font:inherit;font-weight:700;font-size:16px;cursor:pointer;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink)}
+.row2{display:flex;flex-wrap:wrap;gap:10px}
+.row2 > *{flex:1 1 150px}
+.brand{display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;font-family:var(--f-display);font-size:23px;line-height:1.3}
+.ig{background:var(--yellow);color:var(--on-pastel);border-radius:10px;padding:2px 11px;font-family:var(--f-body);font-weight:700;font-size:15px;text-decoration:underline;text-underline-offset:3px;min-height:30px;display:inline-flex;align-items:center}
+.sec-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+
+/* 캡처용 카드: 테마와 상관없이 고정 색, 폭에 비례해 글자 크기가 함께 커지고 작아진다 */
+#stage{display:flex;flex-direction:column;align-items:center;gap:12px}
+.card{--w:min(calc(100vw - 32px),420px);width:var(--w);font-size:calc(var(--w) / 22.5);background:var(--card-bg);color:var(--card-ink);border:.14em solid var(--card-black);border-radius:1.1em;padding:.95em 1.05em .8em;font-family:var(--f-display);position:relative;display:flex;flex-direction:column;gap:.55em;overflow:hidden}
+.c-top{display:flex;align-items:center;justify-content:center;gap:.5em;flex-wrap:wrap}
+.c-label{display:inline-block;background:var(--card-black);color:#fff;border-radius:.8em;padding:.12em .7em;font-size:1.45em;line-height:1.25;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.c-label b{font-weight:400;color:var(--neon)}
+.c-ex{position:absolute;top:.7em;right:.8em;font-size:.72em;border:.12em solid var(--red);color:var(--red);border-radius:.4em;padding:0 .4em;transform:rotate(6deg);font-family:var(--f-body);font-weight:700}
+.c-sub{text-align:center}
+.yb{display:inline-block;background:var(--yellow);color:var(--on-pastel);padding:.05em .6em;font-size:1.02em;line-height:1.4}
+.c-arches{display:grid;grid-template-columns:1fr 1fr;gap:.2em;align-items:start}
+.c-arches figure{margin:0;text-align:center;min-width:0}
+.c-arches svg{width:100%;height:auto;display:block}
+.c-arches figcaption{font-size:.72em;color:var(--card-muted);font-family:var(--f-body)}
+.c-head,.row{display:grid;grid-template-columns:1.6em 7.8em 1fr 3.95em;column-gap:.35em;align-items:center}
+.c-head{font-size:.72em;color:var(--card-muted);font-family:var(--f-body);border-bottom:.1em solid var(--card-line);padding-bottom:.35em;margin-top:.1em}
+.c-head .ax{position:relative;height:1.1em}
+.c-head .ax span{position:absolute;transform:translateX(-50%);top:0;white-space:nowrap}
+.c-head > :last-child{text-align:right}
+.c-rows{display:flex;flex-direction:column}
+.row{height:2.28em;border-bottom:.06em dashed var(--card-line)}
+.row:last-child{border-bottom:0}
+.row .n{width:1.5em;height:1.5em;border-radius:50%;background:var(--card-black);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.92em}
+.row .nm{display:block;border-radius:.5em;padding:.12em .5em;font-size:.84em;white-space:nowrap;color:var(--on-pastel);border:.1em solid #2B2118;line-height:1.3;overflow:hidden;text-overflow:ellipsis}
+.bar{position:relative;height:1.2em}
+.bar::before{content:"";position:absolute;left:0;right:0;top:50%;height:.08em;background:var(--card-line)}
+.bar .tick{position:absolute;top:.15em;bottom:.15em;width:.06em;background:var(--card-line)}
+.bar .band{position:absolute;top:.28em;height:.64em;border-radius:.4em;border:.09em solid #2B2118;min-width:.5em}
+.bar .dot{position:absolute;top:50%;width:.62em;height:.62em;margin:-.31em 0 0 -.31em;border-radius:50%;background:var(--card-black);border:.1em solid var(--card-bg)}
+.bar .dot.act{background:#1B9E3A;width:.78em;height:.78em;margin:-.39em 0 0 -.39em}
+.est{text-align:right;line-height:1.1;white-space:nowrap}
+.est b{font-weight:400;font-size:1.02em;display:block}
+.est small{font-size:.76em;color:var(--card-muted);font-family:var(--f-body)}
+.c-foot{display:flex;justify-content:space-between;align-items:center;gap:.5em;font-family:var(--f-body);font-size:.66em;color:var(--card-muted);border-top:.1em solid var(--card-line);padding-top:.5em;margin-top:.1em}
+.c-foot b{font-family:var(--f-display);font-weight:400;font-size:1.35em;color:var(--card-ink)}
+.c-note{display:flex;justify-content:center;gap:.9em;flex-wrap:wrap;font-family:var(--f-body);font-size:.72em;color:var(--card-muted)}
+.c-note i{display:inline-block;width:.7em;height:.7em;border-radius:50%;margin-right:.3em;vertical-align:-.05em}
+.card.compact .c-arches{display:none}
+#backbar{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;max-width:420px;min-height:44px}
+#backbar p{font-size:13px;color:var(--muted)}
+#backbar .btn{min-height:40px;font-size:14px;padding:0 14px}
+ol.calc{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+.cta{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+#focusbar{display:flex;gap:10px;width:100%;max-width:420px}
+@media (prefers-reduced-motion: no-preference){ .band,.dot{transition:left .25s ease,width .25s ease} }
+</style>
+
+<div class="wrap">
+  <div class="chrome" id="intro" style="display:flex;flex-direction:column;gap:10px">
+    <p class="brand"><span>동글마미의~</span><a class="ig" href="https://www.instagram.com/youbean.ko/" target="_blank" rel="noopener">@youbean.ko</a></p>
+    <h1><span class="hl">우리 아기 <b>이빨</b> 계산기</span></h1>
+    <p class="muted">첫 이가 난 시기만 넣으면, 나머지 이가 날 시기를 한 장 표로 계산해 드려요. 캡처해서 저장하세요.</p>
+  </div>
+
+  <form class="panel chrome" id="form" autocomplete="off">
+    <div class="field">
+      <label for="name">아기 이름 (선택)</label>
+      <input type="text" id="name" maxlength="8" placeholder="예: 동글이">
+    </div>
+
+    <div class="field">
+      <span class="lbl" id="when-l">첫 이가 난 시기</span>
+      <div class="seg" role="group" aria-labelledby="when-l">
+        <button type="button" id="mode-m" aria-pressed="true">개월수로 입력</button>
+        <button type="button" id="mode-d" aria-pressed="false">날짜로 입력</button>
+      </div>
+      <div id="by-month" style="display:flex;flex-direction:column;gap:10px">
+        <div class="stepper">
+          <button type="button" id="minus" aria-label="0.5개월 줄이기">−</button>
+          <div class="val"><input type="number" id="t1" inputmode="decimal" min="1" max="24" step="0.5" value="7" aria-label="첫 이가 난 개월수"><span class="unit">개월</span></div>
+          <button type="button" id="plus" aria-label="0.5개월 늘리기">+</button>
+        </div>
+        <div class="chips" id="quick" role="group" aria-label="자주 고르는 개월수"></div>
+      </div>
+      <div id="by-date" hidden style="display:flex;flex-direction:column;gap:10px">
+        <div class="two">
+          <div class="field"><label for="bd">생일</label><input type="date" id="bd"></div>
+          <div class="field"><label for="fd">첫 이가 보인 날</label><input type="date" id="fd"></div>
+        </div>
+        <p class="note" id="dnote">두 날짜를 넣으면 개월수로 바꿔 드려요.</p>
+      </div>
+      <p class="warn" id="verr" hidden></p>
+    </div>
+
+    <div class="field">
+      <span class="lbl" id="which-l">어떤 이가 먼저 났나요?</span>
+      <div class="chips" id="which" role="group" aria-labelledby="which-l">
+        <button type="button" data-v="lc" aria-pressed="true">아래 앞니</button>
+        <button type="button" data-v="uc" aria-pressed="false">위 앞니</button>
+        <button type="button" data-v="unk" aria-pressed="false">잘 모르겠어요</button>
+      </div>
+    </div>
+
+    <details id="more">
+      <summary>이미 난 이가 더 있나요? (선택)</summary>
+      <div class="body">
+        <p class="note">난 이의 개월수를 적으면 우리 아기 속도를 더 잘 반영하고, 그 이는 '실제'로 표시돼요. 비워 두면 예상으로 계산해요.</p>
+        <div class="known" id="known"></div>
+      </div>
+    </details>
+  </form>
+
+  <section id="stage" aria-label="이빨 예상표">
+    <div id="backbar" hidden><p>이 화면을 그대로 캡처하세요</p><button type="button" class="btn ghost" id="backbtn">← 다시 입력</button></div>
+    <div class="card" id="card" aria-live="polite">
+      <span class="c-ex" id="ex">예시</span>
+      <div class="c-top"><span class="c-label" id="c-title"></span></div>
+      <div class="c-sub"><span class="yb" id="c-sub"></span></div>
+      <div class="c-arches">
+        <figure><svg id="svg-u" viewBox="-215 -58 430 352" role="img" aria-label="위턱 이빨 배치"></svg><figcaption>위턱</figcaption></figure>
+        <figure><svg id="svg-l" viewBox="-215 -58 430 352" role="img" aria-label="아래턱 이빨 배치"></svg><figcaption>아래턱</figcaption></figure>
+      </div>
+      <div class="c-head"><span>순서</span><span>치아</span><span class="ax" id="ax"></span><span>예상</span></div>
+      <div class="c-rows" id="rows"></div>
+      <div class="c-note"><span><i style="background:#111"></i>예상</span><span><i style="background:#1B9E3A"></i>실제 기록</span><span>막대 = 3명 중 2명이 들어오는 범위</span></div>
+      <div class="c-foot"><b>@youbean.ko 동글마미</b><span>여러 연구 종합 추정 · 진단 아님</span></div>
+    </div>
+    <p class="note chrome" id="tip" style="text-align:center"></p>
+    <div id="focusbar" class="chrome"><button type="button" class="btn" id="focusbtn" style="flex:1">결과만 크게 보기 (캡처용)</button></div>
+  </section>
+
+  <details class="chrome" id="how">
+    <summary>이렇게 계산했어요</summary>
+    <div class="body">
+      <ol class="calc">
+        <li><b>치아별 평균 시기</b>: 한국·일본·중국 조사, 미국치과의사협회(ADA) 맹출표, 국제 메타분석에서 구한 값을 종합했어요. 첫 이의 평균은 7개월로 잡았어요.</li>
+        <li><b>우리 아기 속도</b>: 첫 이가 평균보다 N개월 빠르면, 나머지 이도 N개월의 약 0.6~0.9배만큼 같이 당겨서 계산해요. 느리면 같은 비율로 늦춰요.</li>
+        <li><b>100%가 아닌 이유</b>: 스웨덴 아기 212명을 18세까지 지켜본 연구에서 유치끼리 맹출 시기의 상관이 0.3~0.7(중간 정도)이었어요. 그래서 첫 이가 빨라도 어금니가 같은 만큼 빠르다고 보지 않아요.</li>
+        <li><b>막대 구간</b>: 한국 영유아 조사의 개인차(표준편차)로 만든 '3명 중 2명' 범위예요. 뒤쪽 이일수록 넓어요.</li>
+      </ol>
+      <p class="note">정식 의료 도구가 아니라 위 자료를 이은 단순 모델이에요. 순서가 앞선 이일수록 상관 0.7에, 뒤쪽 이일수록 0.3에 가깝다고 가정한 부분은 제 가정이에요.</p>
+      <ul class="src">
+        <li>한국: 조영호, 대한소아치과학회지 4(1), 1977 (n=1,757) · Choi &amp; Yang, ASDC J Dent Child 2001 (n=1,070, 초록)</li>
+        <li>일본: Dodo et al., Children (Basel) 2023 (n=1,690, 부모 관찰)</li>
+        <li>중국: Zhang et al., Sci Rep 2024 (n=249,264, 첫 이 중앙값 6.6~6.8개월)</li>
+        <li>미국: 미국치과의사협회(ADA) Primary Tooth Development</li>
+        <li>국제: Muthu et al., Arch Oral Biol 2024 (42개 연구, n=42,109) · Merck Manual 수록 표</li>
+        <li>이 사이 상관: Hamano &amp; Hägg, Eur J Orthod 1988 (n=212, 초록 요약 기준)</li>
+        <li>확인일 2026-10-02</li>
+      </ul>
+    </div>
+  </details>
+
+  <section class="panel chrome" id="know">
+    <h2>알아두세요</h2>
+    <ul class="src" style="color:var(--ink);font-size:14px">
+      <li>'이가 났다'는 잇몸 밖으로 이가 처음 보일 때를 기준으로 했어요.</li>
+      <li>예상은 평균에서 몇 달씩 벗어날 수 있어요. 막대 밖이어도 문제가 있다는 뜻은 아니에요.</li>
+      <li>조산이었거나 건강 상태가 달랐다면 시기가 다를 수 있어요.</li>
+      <li>정보 공유용이며 진단이 아닙니다. 걱정되면 소아치과·소아과 전문의와 상담하세요.</li>
+    </ul>
+  </section>
+
+  <section class="panel chrome cta" id="cta">
+    <h2>다음 정보도 받아가세요</h2>
+    <p class="muted">캡처한 표를 스토리에 올리고 @youbean.ko를 태그해 주세요. 우리 아기 첫 이는 몇 개월에 났는지 게시물 댓글로도 알려 주세요.</p>
+    <a class="btn" href="https://www.instagram.com/youbean.ko/" target="_blank" rel="noopener">@youbean.ko 팔로우</a>
+  </section>
+</div>
+
+<script>
+/* ---------- 데이터 ----------
+   mu: 자료 종합 평균 시기(개월) = 종합 구간의 가운데. sd: 한국 조사 표준편차(개월).
+   order: 나오는 순서. jaw/idx: 도식 위치. */
+var TEETH = [
+  {id:'lc', k:1, name:'아래 중절치',   jaw:'l', idx:0, type:'central', mu:7.675,  sd:1.77},
+  {id:'uc', k:2, name:'위 중절치',     jaw:'u', idx:0, type:'central', mu:9.475,  sd:2.07},
+  {id:'ul', k:3, name:'위 측절치',     jaw:'u', idx:1, type:'lateral', mu:11.075, sd:2.13},
+  {id:'ll', k:4, name:'아래 측절치',   jaw:'l', idx:1, type:'lateral', mu:12.8,   sd:2.70},
+  {id:'um1',k:5, name:'위 첫째 어금니', jaw:'u', idx:3, type:'m1',      mu:16.225, sd:2.14},
+  {id:'lm1',k:6, name:'아래 첫째 어금니',jaw:'l', idx:3, type:'m1',      mu:16.83,  sd:2.70},
+  {id:'ucn',k:7, name:'위 송곳니',     jaw:'u', idx:2, type:'canine',  mu:19.03,  sd:2.90},
+  {id:'lcn',k:8, name:'아래 송곳니',   jaw:'l', idx:2, type:'canine',  mu:19.41,  sd:3.88},
+  {id:'lm2',k:9, name:'아래 둘째 어금니',jaw:'l', idx:4, type:'m2',      mu:25.445, sd:4.26},
+  {id:'um2',k:10,name:'위 둘째 어금니', jaw:'u', idx:4, type:'m2',      mu:26.64,  sd:4.09}
+];
+var COLORS = {central:'#FFC9D6', lateral:'#FFE566', canine:'#B9F27C', m1:'#A9D8FF', m2:'#D5C2FF'};
+var SIZES = {central:[44,50], lateral:[38,46], canine:[40,52], m1:[58,62], m2:[64,66]};
+var ORDER_TYPES = ['central','lateral','canine','m1','m2'];
+var MU_F = 7.0, SD_F = 1.8;
+var AX_MIN = 4, AX_MAX = 34;
+var INK = '#2B2118';
+
+function rho(k){ return 0.70 - 0.40 * (k - 1) / 9; }
+function mean(a){ var s = 0; for (var i = 0; i < a.length; i++) s += a[i]; return s / a.length; }
+function byId(id){ for (var i = 0; i < TEETH.length; i++) if (TEETH[i].id === id) return TEETH[i]; return null; }
+
+/* 핵심 계산: 첫 이 시기(t1), 먼저 난 이(first), 이미 난 이(known)로 10개 이의 예상 시기를 구한다 */
+function compute(st){
+  var t1 = st.t1, known = {}, id;
+  for (id in st.known) if (st.known[id] != null && isFinite(st.known[id])) known[id] = st.known[id];
+  var devs = [t1 - MU_F];
+  if (st.first === 'lc' || st.first === 'uc') known[st.first] = t1;
+  for (id in known){
+    if (id === st.first) continue;
+    devs.push(known[id] - byId(id).mu);
+  }
+  var d = mean(devs);
+  var rows = TEETH.map(function(t){
+    if (known[t.id] != null) return {t:t, actual:true, est:known[t.id], lo:known[t.id], hi:known[t.id]};
+    var r = rho(t.k), beta = r * t.sd / SD_F, sdc = t.sd * Math.sqrt(1 - r * r);
+    var est = Math.max(t1, t.mu + beta * d);
+    return {t:t, actual:false, est:est, lo:Math.max(t1, est - sdc), hi:est + sdc};
+  });
+  return {d:d, rows:rows};
+}
+
+/* ---------- 도식 ---------- */
+function archPoints(){
+  var A = 0.0085, k = 2 * A;
+  function L(x){ return 0.5 * x * Math.sqrt(1 + k * k * x * x) + Math.asinh(k * x) / (2 * k); }
+  function xAt(s){ var lo = 0, hi = 400; for (var i = 0; i < 60; i++){ var m = (lo + hi) / 2; if (L(m) < s) lo = m; else hi = m; } return (lo + hi) / 2; }
+  var s = 3, res = [];
+  ORDER_TYPES.forEach(function(ty){
+    var w = SIZES[ty][0], x = xAt(s + w / 2), y = A * x * x, sl = k * x, n = Math.hypot(1, sl);
+    res.push({x:x, y:y, tx:1/n, ty:sl/n, nx:sl/n, ny:-1/n});
+    s += w + 5;
+  });
+  return res;
+}
+var PTS = archPoints();
+function shapeFor(ty, fill, sw){
+  var w = SIZES[ty][0], h = SIZES[ty][1];
+  if (ty === 'canine') return '<path d="M '+(-w/2)+' '+(-h/2)+' L '+(w/2)+' '+(-h/2)+' L '+(w/2)+' '+(h*0.12)+' L 0 '+(h/2+10)+' L '+(-w/2)+' '+(h*0.12)+' Z" fill="'+fill+'" stroke="'+INK+'" stroke-width="'+sw+'" stroke-linejoin="round"/>';
+  return '<rect x="'+(-w/2)+'" y="'+(-h/2)+'" width="'+w+'" height="'+h+'" rx="12" fill="'+fill+'" stroke="'+INK+'" stroke-width="'+sw+'"/>';
+}
+function archSVG(jaw, rows){
+  var pts = '';
+  for (var x = -170; x <= 170; x += 5) pts += (pts ? 'L' : 'M') + ' ' + x + ' ' + (0.0085 * x * x).toFixed(1) + ' ';
+  var g = '<path d="'+pts+'" fill="none" stroke="#E9889C" stroke-width="92" stroke-linecap="round" stroke-linejoin="round"/>';
+  g += '<path d="'+pts+'" fill="none" stroke="#FFC7D1" stroke-width="82" stroke-linecap="round" stroke-linejoin="round"/>';
+  var mine = rows.filter(function(r){ return r.t.jaw === jaw; });
+  mine.forEach(function(r){
+    var p = PTS[r.t.idx], ty = r.t.type, sw = r.actual ? 7 : 3.5;
+    [1, -1].forEach(function(side){
+      g += '<g transform="scale('+side+',1)"><g transform="matrix('+p.tx+','+p.ty+','+p.nx+','+p.ny+','+p.x+','+p.y+')">'+shapeFor(ty, COLORS[ty], sw)+'</g></g>';
+    });
+  });
+  mine.forEach(function(r){
+    var p = PTS[r.t.idx];
+    [1, -1].forEach(function(side){
+      var bx = side * p.x;
+      g += '<circle cx="'+bx+'" cy="'+p.y+'" r="21" fill="#111"/><text x="'+bx+'" y="'+(p.y+9)+'" text-anchor="middle" font-size="'+(r.t.k >= 10 ? 22 : 27)+'" fill="#fff" font-family="Yeon Sung,Apple SD Gothic Neo,sans-serif">'+r.t.k+'</text>';
+    });
+  });
+  return g;
+}
+
+/* ---------- 표시 ---------- */
+function fmt(m){ var r = Math.round(m * 2) / 2; return (r % 1 === 0) ? String(r) : r.toFixed(1); }
+function pct(m){ return Math.max(0, Math.min(100, (m - AX_MIN) / (AX_MAX - AX_MIN) * 100)); }
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+var state = {name:'', t1:7, first:'lc', known:{}, touched:false, mode:'m'};
+
+function render(){
+  var res = compute(state);
+  var nm = state.name.trim();
+  document.getElementById('c-title').innerHTML = (nm ? esc(nm) : '우리 아기') + ' <b>이빨</b> 예상표';
+  var d = res.d, pace;
+  if (Math.abs(d) < 0.5) pace = '평균 속도';
+  else pace = '평균보다 ' + fmt(Math.abs(d)) + '개월 ' + (d < 0 ? '빠른' : '느린') + ' 편';
+  document.getElementById('c-sub').textContent = '첫 이 ' + fmt(state.t1) + '개월 · ' + pace;
+  document.getElementById('ex').hidden = state.touched;
+
+  document.getElementById('svg-u').innerHTML = archSVG('u', res.rows);
+  document.getElementById('svg-l').innerHTML = archSVG('l', res.rows);
+
+  var ax = document.getElementById('ax');
+  ax.innerHTML = [12, 24].map(function(m){ return '<span style="left:'+pct(m)+'%">'+m+'</span>'; }).join('');
+
+  document.getElementById('rows').innerHTML = res.rows.map(function(r){
+    var t = r.t, col = COLORS[t.type];
+    var est = Math.round(r.est), lo = Math.round(r.lo), hi = Math.round(r.hi);
+    var bar = '<span class="bar"><i class="tick" style="left:'+pct(12)+'%"></i><i class="tick" style="left:'+pct(24)+'%"></i>';
+    var txt;
+    if (r.actual){
+      bar += '<i class="dot act" style="left:'+pct(r.est)+'%"></i>';
+      txt = '<b>' + fmt(r.est) + '개월</b><small>실제 ✓</small>';
+    } else {
+      var bl = pct(r.lo), bw = Math.max(2.5, pct(r.hi) - pct(r.lo));
+      bar += '<i class="band" style="left:'+bl+'%;width:'+bw+'%;background:'+col+'"></i><i class="dot" style="left:'+pct(r.est)+'%"></i>';
+      txt = '<b>' + est + '개월</b><small>(' + (lo === hi ? lo : lo + '~' + hi) + ')</small>';
+    }
+    bar += '</span>';
+    return '<div class="row"><span class="n">'+t.k+'</span><span class="nm" style="background:'+col+'">'+t.name+'</span>'+bar+'<span class="est">'+txt+'</span></div>';
+  }).join('');
+
+  var tip = '';
+  if (state.t1 < 4) tip = '첫 이가 아주 이르게 났어요. 개인차일 수 있지만 소아치과에서 한 번 확인받아 보세요.';
+  else if (state.t1 > 12) tip = '첫 이가 12개월을 넘어 났어요. 평균 범위에서 꽤 벗어나니 소아치과에서 한 번 확인받아 보세요.';
+  document.getElementById('tip').textContent = tip;
+  if (focusOn) fitCard();
+  try { localStorage.setItem('tooth-calc', JSON.stringify({name:state.name, t1:state.t1, first:state.first, known:state.known})); } catch (e) {}
+}
+
+function fitCard(){
+  var c = document.getElementById('card');
+  c.classList.remove('compact'); c.style.removeProperty('--w');
+  var maxW = Math.min(window.innerWidth - 32, 420);
+  var avail = window.innerHeight - (c.getBoundingClientRect().top + window.scrollY) - 8;
+  function hEm(){ return c.getBoundingClientRect().height / parseFloat(getComputedStyle(c).fontSize); }
+  var w = Math.min(maxW, avail * 22.5 / hEm());
+  if (w < maxW * 0.92 || w / 22.5 < 12.4){ c.classList.add('compact'); w = Math.min(maxW, avail * 22.5 / hEm()); }
+  c.style.setProperty('--w', Math.max(w, 240) + 'px');
+}
+var focusOn = false;
+window.addEventListener('resize', function(){ if (focusOn) fitCard(); });
+
+function buildKnown(){
+  var host = document.getElementById('known');
+  var list = TEETH.filter(function(t){ return t.id !== state.first; });
+  host.innerHTML = list.map(function(t){
+    var v = state.known[t.id];
+    return '<label for="k-'+t.id+'"><span class="tag" style="background:'+COLORS[t.type]+'">'+t.name+'</span><input type="number" id="k-'+t.id+'" data-id="'+t.id+'" inputmode="decimal" min="1" max="36" step="0.5" placeholder="개월수"'+(v != null ? ' value="'+v+'"' : '')+'></label>';
+  }).join('');
+}
+
+function setT1(v){
+  if (!isFinite(v)) return;
+  var e = document.getElementById('verr');
+  if (v < 1 || v > 24){ e.hidden = false; e.textContent = '1~24개월 사이로 넣어 주세요.'; return; }
+  e.hidden = true;
+  state.t1 = Math.round(v * 10) / 10;
+  state.touched = true;
+  document.getElementById('t1').value = state.t1;
+  syncQuick(); render();
+}
+function syncQuick(){
+  var btns = document.querySelectorAll('#quick button');
+  for (var i = 0; i < btns.length; i++) btns[i].setAttribute('aria-pressed', String(parseFloat(btns[i].dataset.v) === state.t1));
+}
+
+function calcDate(){
+  var bd = document.getElementById('bd').value, fd = document.getElementById('fd').value, n = document.getElementById('dnote');
+  if (!bd || !fd){ n.textContent = '두 날짜를 넣으면 개월수로 바꿔 드려요.'; return; }
+  var days = (new Date(fd) - new Date(bd)) / 86400000;
+  if (days <= 0){ n.textContent = '첫 이가 보인 날은 생일보다 뒤여야 해요.'; return; }
+  var m = days / 30.4375;
+  n.textContent = '= 생후 ' + (Math.round(m * 10) / 10) + '개월';
+  setT1(m);
+}
+
+(function init(){
+  var q = document.getElementById('quick');
+  q.innerHTML = [5,6,7,8,9,10].map(function(m){ return '<button type="button" data-v="'+m+'" aria-pressed="false">'+m+'개월</button>'; }).join('');
+  q.addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) setT1(parseFloat(b.dataset.v)); });
+  document.getElementById('minus').addEventListener('click', function(){ setT1(state.t1 - 0.5); });
+  document.getElementById('plus').addEventListener('click', function(){ setT1(state.t1 + 0.5); });
+  document.getElementById('t1').addEventListener('input', function(e){ var v = parseFloat(e.target.value); if (isFinite(v)) setT1(v); });
+  document.getElementById('name').addEventListener('input', function(e){ state.name = e.target.value; state.touched = true; render(); });
+  document.getElementById('which').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    state.first = b.dataset.v; state.touched = true;
+    delete state.known[state.first];
+    var bs = document.querySelectorAll('#which button');
+    for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-pressed', String(bs[i] === b));
+    buildKnown(); render();
+  });
+  document.getElementById('known').addEventListener('input', function(e){
+    var el = e.target; if (!el.dataset.id) return;
+    var v = parseFloat(el.value);
+    if (isFinite(v) && v >= 1 && v <= 36) state.known[el.dataset.id] = v; else delete state.known[el.dataset.id];
+    state.touched = true; render();
+  });
+  function setMode(m){
+    state.mode = m;
+    document.getElementById('mode-m').setAttribute('aria-pressed', String(m === 'm'));
+    document.getElementById('mode-d').setAttribute('aria-pressed', String(m === 'd'));
+    document.getElementById('by-month').hidden = m !== 'm';
+    document.getElementById('by-date').hidden = m !== 'd';
+  }
+  document.getElementById('mode-m').addEventListener('click', function(){ setMode('m'); });
+  document.getElementById('mode-d').addEventListener('click', function(){ setMode('d'); });
+  document.getElementById('bd').addEventListener('change', calcDate);
+  document.getElementById('fd').addEventListener('change', calcDate);
+  document.getElementById('form').addEventListener('submit', function(e){ e.preventDefault(); });
+
+  var chrome = document.querySelectorAll('.chrome');
+  document.getElementById('focusbtn').addEventListener('click', function(){
+    for (var i = 0; i < chrome.length; i++) chrome[i].hidden = true;
+    document.getElementById('backbar').hidden = false;
+    document.body.classList.add('focus');
+    focusOn = true; fitCard();
+    window.scrollTo(0, 0);
+  });
+  document.getElementById('backbtn').addEventListener('click', function(){
+    for (var i = 0; i < chrome.length; i++) chrome[i].hidden = false;
+    document.getElementById('backbar').hidden = true;
+    focusOn = false; document.body.classList.remove('focus');
+    var c = document.getElementById('card'); c.classList.remove('compact'); c.style.removeProperty('--w');
+  });
+
+  try {
+    var saved = JSON.parse(localStorage.getItem('tooth-calc') || 'null');
+    if (saved && isFinite(saved.t1) && saved.t1 >= 1 && saved.t1 <= 24){
+      state.name = saved.name || ''; state.t1 = saved.t1; state.first = saved.first || 'lc'; state.known = saved.known || {}; state.touched = true;
+      document.getElementById('name').value = state.name;
+      document.getElementById('t1').value = state.t1;
+      var bs = document.querySelectorAll('#which button');
+      for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-pressed', String(bs[i].dataset.v === state.first));
+    }
+  } catch (e) {}
+  buildKnown(); syncQuick(); render();
+})();
+</script>
+
+</body>
+</html>
