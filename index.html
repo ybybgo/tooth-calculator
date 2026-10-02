@@ -89,6 +89,7 @@ details > .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;
 .known label{display:flex;flex-direction:column;gap:4px;font-size:13px;min-width:0}
 .known .tag{display:inline-block;border-radius:8px;padding:1px 8px;color:var(--on-pastel);border:1.5px solid #2B2118;font-size:13px;align-self:flex-start}
 .btn{min-height:50px;border-radius:14px;border:2px solid var(--ink);background:var(--label-bg);color:var(--label-ink);font:inherit;font-weight:700;font-size:16px;cursor:pointer;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+.btn.go{min-height:62px;font-family:var(--f-display);font-weight:400;font-size:25px;background:var(--title-bg);color:var(--mint);border:2px solid var(--title-bg);border-radius:16px}
 .btn.ghost{background:transparent;color:var(--ink)}
 .row2{display:flex;flex-wrap:wrap;gap:10px}
 .row2 > *{flex:1 1 150px}
@@ -100,14 +101,13 @@ details > .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;
 .c-top{display:flex;align-items:center;justify-content:center;gap:.5em;flex-wrap:wrap}
 .c-label{display:inline-block;background:var(--card-black);color:#fff;border-radius:.8em;padding:.12em .7em;font-size:1.45em;line-height:1.25;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .c-label b{font-weight:400;color:var(--mint)}
-.c-ex{position:absolute;top:.7em;right:.8em;font-size:.72em;border:.12em solid var(--red);color:var(--red);border-radius:.4em;padding:0 .4em;transform:rotate(6deg);font-family:var(--f-body);font-weight:700}
 .c-sub{text-align:center}
 .yb{display:inline-block;background:var(--yellow);color:var(--on-pastel);padding:.05em .6em;font-size:1.02em;line-height:1.4}
 .c-arches{display:grid;grid-template-columns:1fr 1fr;gap:.2em;align-items:start}
 .c-arches figure{margin:0;text-align:center;min-width:0}
 .c-arches svg{width:100%;height:auto;display:block}
 .c-arches figcaption{font-size:.72em;color:var(--card-muted);font-family:var(--f-body)}
-.c-head,.row{display:grid;grid-template-columns:1.6em 7.8em 1fr 3.95em;column-gap:.35em;align-items:center}
+.c-head,.row{display:grid;grid-template-columns:1.5em 7.3em 1fr 3.9em;column-gap:.35em;align-items:center}
 .c-head{font-size:.72em;color:var(--card-muted);font-family:var(--f-body);border-bottom:.1em solid var(--card-line);padding-bottom:.35em;margin-top:.1em}
 .c-head .ax{position:relative;height:1.1em}
 .c-head .ax span{position:absolute;transform:translateX(-50%);top:0;white-space:nowrap}
@@ -116,26 +116,28 @@ details > .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;
 .row{height:2.28em;border-bottom:.06em dashed var(--card-line)}
 .row:last-child{border-bottom:0}
 .row .n{width:1.5em;height:1.5em;border-radius:50%;background:var(--card-black);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.92em}
-.row .nm{display:block;border-radius:.5em;padding:.12em .5em;font-size:.84em;white-space:nowrap;color:var(--on-pastel);border:.1em solid #2B2118;line-height:1.3;overflow:hidden;text-overflow:ellipsis}
-.bar{position:relative;height:1.2em}
-.bar::before{content:"";position:absolute;left:0;right:0;top:50%;height:.08em;background:var(--card-line)}
-.bar .tick{position:absolute;top:.15em;bottom:.15em;width:.06em;background:var(--card-line)}
-.bar .band{position:absolute;top:.28em;height:.64em;border-radius:.4em;border:.09em solid #2B2118;min-width:.5em}
-.bar .dot{position:absolute;top:50%;width:.62em;height:.62em;margin:-.31em 0 0 -.31em;border-radius:50%;background:var(--card-black);border:.1em solid var(--card-bg)}
-.bar .dot.act{background:#1B9E3A;width:.78em;height:.78em;margin:-.39em 0 0 -.39em}
+.row .nm{display:block;border-radius:.5em;padding:.12em .45em;font-size:.8em;white-space:nowrap;color:var(--on-pastel);border:.1em solid #2B2118;line-height:1.3;overflow:hidden;text-overflow:ellipsis}
+.bar{position:relative;height:1.4em}
+.bar::before{content:"";position:absolute;left:0;right:0;top:50%;height:.5em;margin-top:-.25em;border-radius:.3em;background:#EADFC8}
+.bar .tick{position:absolute;top:.05em;bottom:.05em;width:.07em;background:#C9B992}
+.bar .band{position:absolute;top:.3em;height:.8em;border-radius:.45em;border:.12em solid #2B2118;min-width:.9em}
+.bar .dot{position:absolute;top:50%;width:.74em;height:.74em;margin:-.37em 0 0 -.37em;border-radius:50%;background:var(--card-black);border:.13em solid #fff}
+.bar .dot.act{background:#1B9E3A;width:.92em;height:.92em;margin:-.46em 0 0 -.46em}
 .est{text-align:right;line-height:1.1;white-space:nowrap}
 .est b{font-weight:400;font-size:1.02em;display:block}
 .est small{font-size:.76em;color:var(--card-muted);font-family:var(--f-body)}
 .c-foot{display:flex;justify-content:center;align-items:center;gap:.5em;font-family:var(--f-body);font-size:.66em;color:var(--card-muted);border-top:.1em solid var(--card-line);padding-top:.5em;margin-top:.1em}
 .c-note{display:flex;justify-content:center;gap:.9em;flex-wrap:wrap;font-family:var(--f-body);font-size:.72em;color:var(--card-muted)}
+.c-note .lgb{display:inline-block;position:relative;width:2.4em;height:.78em;border:.11em solid #2B2118;border-radius:.45em;background:#4DA3FF;vertical-align:-.12em;margin-right:.4em}
+.c-note .lgb::after{content:"";position:absolute;left:50%;top:50%;width:.6em;height:.6em;margin:-.3em 0 0 -.3em;border-radius:50%;background:#111;border:.1em solid #fff}
 .c-note i{display:inline-block;width:.7em;height:.7em;border-radius:50%;margin-right:.3em;vertical-align:-.05em}
 .card.compact .c-arches{display:none}
-.card > *:not(.wm):not(.c-ex){position:relative;z-index:1}
-.c-ex{z-index:1}
+.card > *:not(.wm){position:relative;z-index:1}
 .wm{position:absolute;left:-30%;top:-30%;width:160%;height:160%;transform:rotate(-24deg);display:flex;flex-direction:column;justify-content:space-between;opacity:.07;pointer-events:none;user-select:none;-webkit-user-select:none;z-index:0;font-family:var(--f-display);color:var(--card-ink);font-size:1.15em;white-space:nowrap;letter-spacing:.04em}
 .wm span:nth-child(even){padding-left:7em}
+#tip:empty{display:none}
 #backbar{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;max-width:420px;min-height:44px}
-#backbar p{font-size:13px;color:var(--muted)}
+#backbar .cap{background:var(--title-bg);color:var(--mint);border-radius:12px;padding:6px 12px;font-family:var(--f-display);font-size:16px;white-space:nowrap}
 #backbar .btn{min-height:40px;font-size:14px;padding:0 14px}
 ol.calc{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
 ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
@@ -200,11 +202,15 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
     </details>
   </form>
 
-  <section id="stage" aria-label="이빨 예상표">
-    <div id="backbar" hidden><p>이 화면을 그대로 캡처하세요</p><button type="button" class="btn ghost" id="backbtn">← 다시 입력</button></div>
+  <div class="chrome" id="gowrap" style="display:flex;flex-direction:column;gap:8px">
+    <button type="button" class="btn go" id="gobtn">결과 보러가기 →</button>
+    <p class="note" style="text-align:center">누르면 이빨 예상표가 나와요. 그 화면을 캡처해 저장하세요.</p>
+  </div>
+
+  <section id="stage" aria-label="이빨 예상표" hidden>
+    <div id="backbar"><span class="cap">📸 지금 이 화면을 캡처하세요</span><button type="button" class="btn ghost" id="backbtn">← 다시 입력</button></div>
     <div class="card" id="card" aria-live="polite">
       <div class="wm" id="wm" aria-hidden="true"></div>
-      <span class="c-ex" id="ex">예시</span>
       <div class="c-top"><span class="c-label" id="c-title"></span></div>
       <div class="c-sub"><span class="yb" id="c-sub"></span></div>
       <div class="c-arches">
@@ -213,11 +219,10 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
       </div>
       <div class="c-head"><span>순서</span><span>치아</span><span class="ax" id="ax"></span><span>예상</span></div>
       <div class="c-rows" id="rows"></div>
-      <div class="c-note"><span><i style="background:#111"></i>예상</span><span><i style="background:#1B9E3A"></i>실제 기록</span><span>막대 = 3명 중 2명이 들어오는 범위</span></div>
+      <div class="c-note"><span><i style="background:#111"></i>예상</span><span><i style="background:#1B9E3A"></i>실제 기록</span><span><b class="lgb"></b>3명 중 2명이 들어오는 범위</span></div>
       <div class="c-foot"><span>여러 연구 종합 추정 · 진단 아님</span></div>
     </div>
-    <p class="note chrome" id="tip" style="text-align:center"></p>
-    <div id="focusbar" class="chrome"><button type="button" class="btn" id="focusbtn" style="flex:1">결과만 크게 보기 (캡처용)</button></div>
+    <p class="note" id="tip" style="text-align:center"></p>
   </section>
 
   <details class="chrome" id="how">
@@ -279,7 +284,8 @@ var COLORS = {central:'#FFC9D6', lateral:'#FFE566', canine:'#B9F27C', m1:'#A9D8F
 var SIZES = {central:[44,50], lateral:[38,46], canine:[40,52], m1:[58,62], m2:[64,66]};
 var ORDER_TYPES = ['central','lateral','canine','m1','m2'];
 var MU_F = 7.0, SD_F = 1.8;
-var AX_MIN = 4, AX_MAX = 34;
+var AX_MIN = 5, AX_MAX = 31;
+var SAT = {central:'#F48FB1', lateral:'#FFC400', canine:'#7ED321', m1:'#4DA3FF', m2:'#9B7BFF'};
 var INK = '#2B2118';
 
 function rho(k){ return 0.70 - 0.40 * (k - 1) / 9; }
@@ -362,7 +368,6 @@ function render(){
   if (Math.abs(d) < 0.5) pace = '평균 속도';
   else pace = '평균보다 ' + fmt(Math.abs(d)) + '개월 ' + (d < 0 ? '빠른' : '느린') + ' 편';
   document.getElementById('c-sub').textContent = '첫 이 ' + fmt(state.t1) + '개월 · ' + pace;
-  document.getElementById('ex').hidden = state.touched;
 
   document.getElementById('svg-u').innerHTML = archSVG('u', res.rows);
   document.getElementById('svg-l').innerHTML = archSVG('l', res.rows);
@@ -380,7 +385,7 @@ function render(){
       txt = '<b>' + fmt(r.est) + '개월</b><small>실제 ✓</small>';
     } else {
       var bl = pct(r.lo), bw = Math.max(2.5, pct(r.hi) - pct(r.lo));
-      bar += '<i class="band" style="left:'+bl+'%;width:'+bw+'%;background:'+col+'"></i><i class="dot" style="left:'+pct(r.est)+'%"></i>';
+      bar += '<i class="band" style="left:'+bl+'%;width:'+bw+'%;background:'+SAT[t.type]+'"></i><i class="dot" style="left:'+pct(r.est)+'%"></i>';
       txt = '<b>' + est + '개월</b><small>(' + (lo === hi ? lo : lo + '~' + hi) + ')</small>';
     }
     bar += '</span>';
@@ -399,7 +404,8 @@ function fitCard(){
   var c = document.getElementById('card');
   c.classList.remove('compact'); c.style.removeProperty('--w');
   var maxW = Math.min(window.innerWidth - 32, 420);
-  var avail = window.innerHeight - (c.getBoundingClientRect().top + window.scrollY) - 8;
+  var tipH = document.getElementById('tip').textContent ? document.getElementById('tip').offsetHeight + 8 : 0;
+  var avail = window.innerHeight - (c.getBoundingClientRect().top + window.scrollY) - 8 - tipH;
   function hEm(){ return c.getBoundingClientRect().height / parseFloat(getComputedStyle(c).fontSize); }
   var w = Math.min(maxW, avail * 22.5 / hEm());
   if (w < maxW * 0.92 || w / 22.5 < 12.4){ c.classList.add('compact'); w = Math.min(maxW, avail * 22.5 / hEm()); }
@@ -484,20 +490,25 @@ function calcDate(){
   document.getElementById('fd').addEventListener('change', calcDate);
   document.getElementById('form').addEventListener('submit', function(e){ e.preventDefault(); });
 
-  var chrome = document.querySelectorAll('.chrome');
-  document.getElementById('focusbtn').addEventListener('click', function(){
+  function showResult(){
+    state.touched = true; render();
+    var chrome = document.querySelectorAll('.chrome');
     for (var i = 0; i < chrome.length; i++) chrome[i].hidden = true;
-    document.getElementById('backbar').hidden = false;
+    document.getElementById('stage').hidden = false;
     document.body.classList.add('focus');
     focusOn = true; fitCard();
     window.scrollTo(0, 0);
-  });
-  document.getElementById('backbtn').addEventListener('click', function(){
+  }
+  function showInput(){
+    var chrome = document.querySelectorAll('.chrome');
     for (var i = 0; i < chrome.length; i++) chrome[i].hidden = false;
-    document.getElementById('backbar').hidden = true;
+    document.getElementById('stage').hidden = true;
     focusOn = false; document.body.classList.remove('focus');
     var c = document.getElementById('card'); c.classList.remove('compact'); c.style.removeProperty('--w');
-  });
+    window.scrollTo(0, 0);
+  }
+  document.getElementById('gobtn').addEventListener('click', showResult);
+  document.getElementById('backbtn').addEventListener('click', showInput);
 
   try {
     var saved = JSON.parse(localStorage.getItem('tooth-calc') || 'null');
