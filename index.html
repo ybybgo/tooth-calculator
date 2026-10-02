@@ -77,6 +77,8 @@ input:focus-visible,button:focus-visible,summary:focus-visible,a:focus-visible{o
 .chips button[aria-pressed=true]{background:var(--yellow);border-color:#16130F;color:var(--on-pastel)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .note{font-size:13px;color:var(--muted)}
+.rule{margin:0;background:var(--bg);border:1.5px dashed var(--ink);border-radius:12px;padding:10px 12px;font-size:13.5px;line-height:1.6}
+.rule b:first-child{display:inline-block;background:var(--yellow);color:var(--on-pastel);border-radius:6px;padding:0 7px;margin-right:6px}
 .warn{font-size:13px;color:var(--red)}
 details{border:1px solid var(--line);border-radius:14px;background:var(--panel)}
 details > summary{cursor:pointer;padding:14px 16px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:10px;min-height:48px;align-items:center}
@@ -157,6 +159,7 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
 
     <div class="field">
       <span class="lbl" id="when-l">첫 이가 난 시기</span>
+      <p class="rule" id="rule"><b>기준</b> 잇몸을 뚫고 이가 <b>쌀알만큼이라도 눈에 보이기 시작한 때</b>예요. 앞니는 이 끝, 어금니는 돌기 끝이 살짝 보여도 돼요. 잇몸이 부풀거나 하얗게 비치기만 하는 건 아직 아니에요.</p>
       <div class="seg" role="group" aria-labelledby="when-l">
         <button type="button" id="mode-m" aria-pressed="true">개월수로 입력</button>
         <button type="button" id="mode-d" aria-pressed="false">날짜로 입력</button>
@@ -191,7 +194,7 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
     <details id="more">
       <summary>이미 난 이가 더 있나요? (선택)</summary>
       <div class="body">
-        <p class="note">난 이의 개월수를 적으면 우리 아기 속도를 더 잘 반영하고, 그 이는 '실제'로 표시돼요. 비워 두면 예상으로 계산해요.</p>
+        <p class="note">난 이의 개월수를 적으면 우리 아기 속도를 더 잘 반영하고, 그 이는 '실제'로 표시돼요. 첫 이와 같은 기준(쌀알만큼이라도 보이기 시작한 때)으로 적어 주세요. 비워 두면 예상으로 계산해요.</p>
         <div class="known" id="known"></div>
       </div>
     </details>
@@ -242,7 +245,7 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
   <section class="panel chrome" id="know">
     <h2>알아두세요</h2>
     <ul class="src" style="color:var(--ink);font-size:14px">
-      <li>'이가 났다'는 잇몸 밖으로 이가 처음 보일 때를 기준으로 했어요.</li>
+      <li>'이가 났다'는 잇몸을 뚫고 이가 쌀알만큼이라도 눈에 보이기 시작한 때를 기준으로 했어요. 이 기준은 조사 연구들(잇몸을 뚫고 나온 부분이 하나라도 있으면 난 것으로 셈)과 같아요.</li>
       <li>예상은 평균에서 몇 달씩 벗어날 수 있어요. 막대 밖이어도 문제가 있다는 뜻은 아니에요.</li>
       <li>조산이었거나 건강 상태가 달랐다면 시기가 다를 수 있어요.</li>
       <li>정보 공유용이며 진단이 아닙니다. 걱정되면 소아치과·소아과 전문의와 상담하세요.</li>
