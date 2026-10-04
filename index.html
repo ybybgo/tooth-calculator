@@ -100,8 +100,8 @@ details > .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;
 .sec-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 
 /* 캡처용 카드: 테마와 상관없이 고정 색, 폭에 비례해 글자 크기가 함께 커지고 작아진다 */
-#stage{display:flex;flex-direction:column;align-items:center;gap:12px}
-.card{--w:min(calc(100vw - 32px),420px);width:var(--w);font-size:calc(var(--w) / 22.5);background:var(--card-bg);color:var(--card-ink);border:.14em solid var(--card-black);border-radius:1.1em;padding:.95em 1.05em .8em;font-family:var(--f-display);position:relative;display:flex;flex-direction:column;gap:.55em;overflow:hidden}
+#stage{--w:min(calc(100vw - 32px),420px);display:flex;flex-direction:column;align-items:center;gap:12px}
+.card{width:var(--w);font-size:calc(var(--w) / 22.5);background:var(--card-bg);color:var(--card-ink);border:.14em solid var(--card-black);border-radius:1.1em;padding:.95em 1.05em .8em;font-family:var(--f-display);position:relative;display:flex;flex-direction:column;gap:.55em;overflow:hidden}
 .c-top{display:flex;align-items:center;justify-content:center;gap:.5em;flex-wrap:wrap}
 .c-label{display:inline-block;background:var(--card-black);color:#fff;border-radius:.8em;padding:.12em .7em;font-size:1.45em;line-height:1.25;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .c-label b{font-weight:400;color:var(--mint)}
@@ -110,7 +110,9 @@ details > .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;
 .c-arches{display:grid;grid-template-columns:1fr 1fr;gap:.2em;align-items:start}
 .c-arches figure{margin:0;text-align:center;min-width:0}
 .c-arches svg{width:100%;height:auto;display:block}
-.c-arches figcaption{font-size:.72em;color:var(--card-muted);font-family:var(--f-body)}
+.c-arches figcaption{font-size:.8em;font-family:var(--f-body);font-weight:700}
+.c-arches .fu{color:#1F6FA8}
+.c-arches .fl{color:#B65A1C}
 .c-head,.row{display:grid;grid-template-columns:1.5em 7.3em 1fr 3.9em;column-gap:.35em;align-items:center}
 .c-head{font-size:.72em;color:var(--card-muted);font-family:var(--f-body);border-bottom:.1em solid var(--card-line);padding-bottom:.35em;margin-top:.1em}
 .c-head .ax{position:relative;height:1.1em}
@@ -119,7 +121,7 @@ details > .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;
 .c-rows{display:flex;flex-direction:column}
 .row{height:2.28em;border-bottom:.06em dashed var(--card-line)}
 .row:last-child{border-bottom:0}
-.row .n{width:1.5em;height:1.5em;border-radius:50%;background:var(--card-black);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.92em}
+.row .n{width:1.5em;height:1.5em;border-radius:50%;background:var(--card-black);color:#fff;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:.92em}
 .row .nm{display:block;border-radius:.5em;padding:.12em .45em;font-size:.8em;white-space:nowrap;color:var(--on-pastel);border:.1em solid #2B2118;line-height:1.3;overflow:hidden;text-overflow:ellipsis}
 .bar{position:relative;height:1.4em}
 .bar::before{content:"";position:absolute;left:0;right:0;top:50%;height:.5em;margin-top:-.25em;border-radius:.3em;background:#EADFC8}
@@ -140,6 +142,11 @@ details > .body{padding:0 16px 16px;display:flex;flex-direction:column;gap:10px;
 .wm{position:absolute;left:-30%;top:-30%;width:160%;height:160%;transform:rotate(-24deg);display:flex;flex-direction:column;justify-content:space-between;opacity:.07;pointer-events:none;user-select:none;-webkit-user-select:none;z-index:0;font-family:var(--f-display);color:var(--card-ink);font-size:1.15em;white-space:nowrap;letter-spacing:.04em}
 .wm span:nth-child(even){padding-left:7em}
 #tip:empty{display:none}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:var(--w)}
+.actions .btn{min-height:48px;font-size:15px;padding:0 8px;white-space:nowrap}
+#imgov{position:fixed;inset:0;z-index:40;background:rgba(10,8,5,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px}
+#imgov img{max-width:100%;max-height:calc(100vh - 170px);border-radius:12px;background:#FFF7E6}
+#imgov p{color:#fff;font-size:15px;text-align:center;margin:0}
 #backbar{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;max-width:420px;min-height:44px}
 #backbar .cap{background:var(--title-bg);color:var(--mint);border-radius:12px;padding:6px 12px;font-family:var(--f-display);font-size:16px;white-space:nowrap}
 #backbar .btn{min-height:40px;font-size:14px;padding:0 14px}
@@ -213,20 +220,21 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
   </div>
 
   <section id="stage" aria-label="이빨 예상표" hidden>
-    <div id="backbar"><span class="cap">📸 지금 이 화면을 캡처하세요</span><button type="button" class="btn ghost" id="backbtn">← 다시 입력</button></div>
+    <div id="backbar"><span class="cap">📸 캡처하거나 이미지로 저장하세요</span><button type="button" class="btn ghost" id="backbtn">← 다시 입력</button></div>
     <div class="card" id="card" aria-live="polite">
       <div class="wm" id="wm" aria-hidden="true"></div>
       <div class="c-top"><span class="c-label" id="c-title"></span></div>
       <div class="c-sub"><span class="yb" id="c-sub"></span></div>
       <div class="c-arches">
-        <figure><svg id="svg-u" viewBox="-215 -58 430 352" role="img" aria-label="위턱 이빨 배치"></svg><figcaption>위턱</figcaption></figure>
-        <figure><svg id="svg-l" viewBox="-215 -58 430 352" role="img" aria-label="아래턱 이빨 배치"></svg><figcaption>아래턱</figcaption></figure>
+        <figure><svg id="svg-u" viewBox="-215 -58 430 352" role="img" aria-label="위턱 이빨 배치"></svg><figcaption class="fu">위턱</figcaption></figure>
+        <figure><svg id="svg-l" viewBox="-215 -58 430 352" role="img" aria-label="아래턱 이빨 배치"></svg><figcaption class="fl">아래턱</figcaption></figure>
       </div>
       <div class="c-head"><span>순서</span><span>치아</span><span class="ax" id="ax"></span><span>예상</span></div>
       <div class="c-rows" id="rows"></div>
       <div class="c-note"><span><i style="background:#111"></i>예상</span><span><i style="background:#1B9E3A"></i>실제 기록</span><span><b class="lgb"></b>3명 중 2명이 들어오는 범위</span></div>
       <div class="c-foot"><span>여러 연구 종합 추정 · 진단 아님</span></div>
     </div>
+    <div class="actions" id="actions"><button type="button" class="btn ghost" id="dlbtn">⬇ 이미지 저장</button><button type="button" class="btn" id="igbtn">📷 인스타그램 공유</button></div>
     <p class="note" id="tip" style="text-align:center"></p>
   </section>
 
@@ -269,7 +277,9 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
   </section>
 </div>
 <div id="toast" role="status" aria-live="polite" hidden></div>
+<div id="imgov" role="dialog" aria-label="이미지 저장" hidden><p>이미지를 길게 눌러 저장하세요</p><img id="imgov-img" alt="이빨 예상표 이미지"><button type="button" class="btn" id="imgov-close">닫기</button></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 /* ---------- 데이터 ----------
    mu: 자료 종합 평균 시기(개월) = 종합 구간의 가운데. sd: 한국 조사 표준편차(개월).
@@ -293,6 +303,13 @@ var MU_F = 7.0, SD_F = 1.8;
 var AX_MIN = 5, AX_MAX = 31;
 var SAT = {central:'#F48FB1', lateral:'#FFC400', canine:'#7ED321', m1:'#4DA3FF', m2:'#9B7BFF'};
 var INK = '#2B2118';
+var GUM = {u:['#6FB6EA','#CBE8FF'], l:['#E8914F','#FFD9B8']};
+var JAWTXT = {u:['위턱','#1F6FA8'], l:['아래턱','#B65A1C']};
+function ramp(k){
+  var a = [92,255,209], b = [108,59,209], t = (k - 1) / 9, c = a.map(function(v, i){ return Math.round(v + (b[i] - v) * t); });
+  var lum = (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255;
+  return {bg:'rgb(' + c.join(',') + ')', fg: lum > 0.55 ? '#111' : '#fff'};
+}
 
 function rho(k){ return 0.70 - 0.40 * (k - 1) / 9; }
 function mean(a){ var s = 0; for (var i = 0; i < a.length; i++) s += a[i]; return s / a.length; }
@@ -340,8 +357,8 @@ function shapeFor(ty, fill, sw){
 function archSVG(jaw, rows){
   var pts = '';
   for (var x = -170; x <= 170; x += 5) pts += (pts ? 'L' : 'M') + ' ' + x + ' ' + (0.0085 * x * x).toFixed(1) + ' ';
-  var g = '<path d="'+pts+'" fill="none" stroke="#E9889C" stroke-width="92" stroke-linecap="round" stroke-linejoin="round"/>';
-  g += '<path d="'+pts+'" fill="none" stroke="#FFC7D1" stroke-width="82" stroke-linecap="round" stroke-linejoin="round"/>';
+  var g = '<path d="'+pts+'" fill="none" stroke="'+GUM[jaw][0]+'" stroke-width="92" stroke-linecap="round" stroke-linejoin="round"/>';
+  g += '<path d="'+pts+'" fill="none" stroke="'+GUM[jaw][1]+'" stroke-width="82" stroke-linecap="round" stroke-linejoin="round"/>';
   var mine = rows.filter(function(r){ return r.t.jaw === jaw; });
   mine.forEach(function(r){
     var p = PTS[r.t.idx], ty = r.t.type, sw = r.actual ? 7 : 3.5;
@@ -353,9 +370,11 @@ function archSVG(jaw, rows){
     var p = PTS[r.t.idx];
     [1, -1].forEach(function(side){
       var bx = side * p.x;
-      g += '<circle cx="'+bx+'" cy="'+p.y+'" r="21" fill="#111"/><text x="'+bx+'" y="'+(p.y+9)+'" text-anchor="middle" font-size="'+(r.t.k >= 10 ? 22 : 27)+'" fill="#fff" font-family="Yeon Sung,Apple SD Gothic Neo,sans-serif">'+r.t.k+'</text>';
+      var rc = ramp(r.t.k);
+      g += '<circle cx="'+bx+'" cy="'+p.y+'" r="23" fill="'+rc.bg+'" stroke="#111" stroke-width="4"/><text x="'+bx+'" y="'+(p.y+10)+'" text-anchor="middle" font-size="'+(r.t.k >= 10 ? 25 : 31)+'" fill="'+rc.fg+'" font-family="Yeon Sung,Apple SD Gothic Neo,sans-serif">'+r.t.k+'</text>';
     });
   });
+  g += '<text x="0" y="172" text-anchor="middle" font-size="54" fill="'+JAWTXT[jaw][1]+'" font-family="Yeon Sung,Apple SD Gothic Neo,sans-serif">'+JAWTXT[jaw][0]+'</text>';
   return g;
 }
 
@@ -367,6 +386,7 @@ function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'
 var state = {name:'', t1:7, first:'lc', known:{}, touched:false, mode:'m'};
 
 function render(){
+  imgCache = null;
   var res = compute(state);
   var nm = state.name.trim();
   document.getElementById('c-title').innerHTML = (nm ? esc(nm) : '우리 아기') + ' <b>이빨</b> 예상표';
@@ -395,7 +415,8 @@ function render(){
       txt = '<b>' + est + '개월</b><small>(' + (lo === hi ? lo : lo + '~' + hi) + ')</small>';
     }
     bar += '</span>';
-    return '<div class="row"><span class="n">'+t.k+'</span><span class="nm" style="background:'+col+'">'+t.name+'</span>'+bar+'<span class="est">'+txt+'</span></div>';
+    var rk = ramp(t.k);
+    return '<div class="row"><span class="n" style="background:'+rk.bg+';color:'+rk.fg+';border:.1em solid #111">'+t.k+'</span><span class="nm" style="background:'+col+'">'+t.name+'</span>'+bar+'<span class="est">'+txt+'</span></div>';
   }).join('');
 
   var tip = '';
@@ -407,18 +428,106 @@ function render(){
 }
 
 function fitCard(){
-  var c = document.getElementById('card');
-  c.classList.remove('compact'); c.style.removeProperty('--w');
+  var c = document.getElementById('card'), st = document.getElementById('stage');
+  c.classList.remove('compact'); st.style.removeProperty('--w');
   var maxW = Math.min(window.innerWidth - 32, 420);
-  var tipH = document.getElementById('tip').textContent ? document.getElementById('tip').offsetHeight + 8 : 0;
-  var avail = window.innerHeight - (c.getBoundingClientRect().top + window.scrollY) - 8 - tipH;
+  var tipH = document.getElementById('tip').textContent ? document.getElementById('tip').offsetHeight + 12 : 0;
+  var actH = document.getElementById('actions').offsetHeight + 12;
+  var avail = window.innerHeight - (c.getBoundingClientRect().top + window.scrollY) - 8 - tipH - actH;
   function hEm(){ return c.getBoundingClientRect().height / parseFloat(getComputedStyle(c).fontSize); }
   var w = Math.min(maxW, avail * 22.5 / hEm());
   if (w < maxW * 0.92 || w / 22.5 < 12.4){ c.classList.add('compact'); w = Math.min(maxW, avail * 22.5 / hEm()); }
-  c.style.setProperty('--w', Math.max(w, 240) + 'px');
+  st.style.setProperty('--w', Math.max(w, 240) + 'px');
 }
 var focusOn = false;
 window.addEventListener('resize', function(){ if (focusOn) fitCard(); });
+
+/* ---------- 이미지 만들기 ---------- */
+var imgCache = null, imgBusy = null;
+function cardCanvas(){
+  var src = document.getElementById('card');
+  var clone = src.cloneNode(true);
+  clone.removeAttribute('id');
+  var ids = clone.querySelectorAll('[id]'); for (var i = 0; i < ids.length; i++) ids[i].removeAttribute('id');
+  clone.classList.remove('compact'); clone.style.setProperty('--w', '420px');
+  var holder = document.createElement('div');
+  holder.style.cssText = 'position:fixed;left:-10000px;top:0;width:420px;pointer-events:none';
+  holder.appendChild(clone); document.body.appendChild(holder);
+  var svgs = clone.querySelectorAll('svg');
+  for (var k = 0; k < svgs.length; k++){
+    var sv = svgs[k], r = sv.getBoundingClientRect();
+    var xml = new XMLSerializer().serializeToString(sv);
+    if (!/xmlns=/.test(xml)) xml = xml.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+    xml = xml.replace(/<svg([^>]*)>/, function(m, a){ return '<svg' + a.replace(/\s(width|height)="[^"]*"/g, '') + ' width="' + r.width + '" height="' + r.height + '">'; });
+    var im = document.createElement('img');
+    im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(xml);
+    im.style.cssText = 'display:block;width:' + r.width + 'px;height:' + r.height + 'px';
+    sv.parentNode.replaceChild(im, sv);
+  }
+  var ready = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+  return ready.then(function(){
+    var imgs = clone.querySelectorAll('img'), waits = [];
+    for (var q = 0; q < imgs.length; q++) if (imgs[q].decode) waits.push(imgs[q].decode().catch(function(){}));
+    return Promise.all(waits);
+  }).then(function(){
+    return html2canvas(clone, {scale: 2.6, backgroundColor: null, useCORS: true, logging: false});
+  }).then(function(cv){ document.body.removeChild(holder); return cv; }, function(e){ document.body.removeChild(holder); throw e; });
+}
+function storyBlob(){
+  return cardCanvas().then(function(cv){
+    var W = 1080, H = 1920, out = document.createElement('canvas'); out.width = W; out.height = H;
+    var g = out.getContext('2d'); g.fillStyle = '#FFF7E6'; g.fillRect(0, 0, W, H);
+    var h = 1800, w = Math.round(cv.width * h / cv.height);
+    if (w > 1000){ w = 1000; h = Math.round(cv.height * w / cv.width); }
+    g.drawImage(cv, Math.round((W - w) / 2), Math.round((H - h) / 2), w, h);
+    return new Promise(function(res, rej){ out.toBlob(function(b){ b ? res(b) : rej(new Error('toBlob')); }, 'image/png'); });
+  });
+}
+function getImage(){
+  if (imgCache) return Promise.resolve(imgCache);
+  if (!imgBusy) imgBusy = storyBlob().then(function(b){ imgCache = b; imgBusy = null; return b; }, function(e){ imgBusy = null; throw e; });
+  return imgBusy;
+}
+function prepareImage(){ window.__prep = (typeof html2canvas === 'function') ? getImage().catch(function(){}) : Promise.resolve(); }
+function imgName(){ var n = state.name.trim(); return '이빨예상표_' + (n || '우리아기') + '.png'; }
+function inAppBrowser(){ return /Instagram|FBAN|FBAV|KAKAOTALK|NAVER\(inapp|Line\//i.test(navigator.userAgent); }
+function showOverlay(blob){
+  var url = URL.createObjectURL(blob);
+  var img = document.getElementById('imgov-img'); img.src = url;
+  document.getElementById('imgov').hidden = false;
+}
+function saveBlob(blob){
+  if (inAppBrowser()){ showOverlay(blob); return; }
+  try {
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = imgName();
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast('이미지를 저장했어요');
+  } catch (e) { showOverlay(blob); }
+}
+function needLib(){ if (typeof html2canvas !== 'function'){ toast('이미지를 만들 수 없어요. 화면을 캡처해 주세요'); return true; } return false; }
+function downloadImage(){
+  if (needLib()) return;
+  if (imgCache){ saveBlob(imgCache); return; }
+  toast('이미지를 만들고 있어요…');
+  getImage().then(saveBlob, function(){ toast('이미지를 만들지 못했어요. 화면을 캡처해 주세요'); });
+}
+function shareInstagram(){
+  if (needLib()) return;
+  var text = '우리 아가 첫 이🦷 계산기 @youbean.ko ' + SHARE_URL;
+  function go(blob){
+    var file = new File([blob], imgName(), {type: 'image/png'});
+    if (navigator.canShare && navigator.canShare({files: [file]})){
+      navigator.share({files: [file], title: '우리 아가 첫 이🦷 계산기', text: text}).catch(function(e){ if (e && e.name !== 'AbortError') fallback(blob); });
+    } else fallback(blob);
+  }
+  function fallback(blob){
+    saveBlob(blob);
+    if (!inAppBrowser()) toast('이미지를 저장했어요. 인스타그램에서 + 를 눌러 새 게시물에 이 이미지를 올리고 @youbean.ko를 태그해 주세요');
+  }
+  if (imgCache){ go(imgCache); return; }
+  toast('이미지를 만들고 있어요…');
+  getImage().then(go, function(){ toast('이미지를 만들지 못했어요. 화면을 캡처해 주세요'); });
+}
 
 var SHARE_URL = 'https://ybybgo.github.io/tooth-calculator/';
 var toastTimer = null;
@@ -529,17 +638,21 @@ function calcDate(){
     document.body.classList.add('focus');
     focusOn = true; fitCard();
     window.scrollTo(0, 0);
+    prepareImage();
   }
   function showInput(){
     var chrome = document.querySelectorAll('.chrome');
     for (var i = 0; i < chrome.length; i++) chrome[i].hidden = false;
     document.getElementById('stage').hidden = true;
     focusOn = false; document.body.classList.remove('focus');
-    var c = document.getElementById('card'); c.classList.remove('compact'); c.style.removeProperty('--w');
+    var c = document.getElementById('card'); c.classList.remove('compact'); document.getElementById('stage').style.removeProperty('--w');
     window.scrollTo(0, 0);
   }
   document.getElementById('gobtn').addEventListener('click', showResult);
   document.getElementById('sharebtn').addEventListener('click', shareLink);
+  document.getElementById('dlbtn').addEventListener('click', downloadImage);
+  document.getElementById('igbtn').addEventListener('click', shareInstagram);
+  document.getElementById('imgov-close').addEventListener('click', function(){ document.getElementById('imgov').hidden = true; });
   document.getElementById('sharebtn2').addEventListener('click', shareLink);
   document.getElementById('backbtn').addEventListener('click', showInput);
 
