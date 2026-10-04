@@ -305,10 +305,10 @@ var SAT = {central:'#F48FB1', lateral:'#FFC400', canine:'#7ED321', m1:'#4DA3FF',
 var INK = '#2B2118';
 var GUM = {u:['#6FB6EA','#CBE8FF'], l:['#E8914F','#FFD9B8']};
 var JAWTXT = {u:['위턱','#1F6FA8'], l:['아래턱','#B65A1C']};
+var PALETTE = [['#E5262B','#fff'],['#FF8A00','#111'],['#FFE600','#111'],['#7ED321','#111'],['#00BFA6','#111'],['#2D9CFF','#111'],['#3D3BFF','#fff'],['#A24BFF','#fff'],['#FF4FB8','#111'],['#1B1B2F','#fff']];
 function ramp(k){
-  var a = [92,255,209], b = [108,59,209], t = (k - 1) / 9, c = a.map(function(v, i){ return Math.round(v + (b[i] - v) * t); });
-  var lum = (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255;
-  return {bg:'rgb(' + c.join(',') + ')', fg: lum > 0.55 ? '#111' : '#fff'};
+  var p = PALETTE[k - 1];
+  return {bg:p[0], fg:p[1]};
 }
 
 function rho(k){ return 0.70 - 0.40 * (k - 1) / 9; }
