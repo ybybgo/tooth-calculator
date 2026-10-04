@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>우리 아가 첫 이 계산기 | @동글마미</title>
+<title>우리 아가 첫 이🦷 계산기 | @동글마미</title>
 <meta name="description" content="첫 이가 난 개월수만 넣으면 나머지 이가 날 시기를 한 장 표로 계산해 줘요. 여러 연구를 종합한 참고용 추정이에요.">
 <meta name="theme-color" content="#FFF7E6">
 <link rel="canonical" href="https://ybybgo.github.io/tooth-calculator/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%B7%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
-<meta property="og:title" content="우리 아가 첫 이 계산기 | @동글마미">
+<meta property="og:title" content="우리 아가 첫 이🦷 계산기 | @동글마미">
 <meta property="og:description" content="첫 이가 난 개월수만 넣으면 나머지 이가 날 시기를 한 장 표로 계산해 줘요. 여러 연구를 종합한 참고용 추정이에요.">
 <meta property="og:url" content="https://ybybgo.github.io/tooth-calculator/">
 <meta property="og:image" content="https://ybybgo.github.io/tooth-calculator/og.png">
@@ -33,16 +33,16 @@ img{max-width:100%}
 :root{
   --bg:#FFF7E6; --panel:#FFFFFF; --ink:#16130F; --muted:#6B5A46; --line:#E8DCC4; --focus:#111111;
   --label-bg:#111111; --label-ink:#FFFFFF; --neon:#39FF14; --yellow:#FFE819; --red:#D7263D;
-  --on-pastel:#16130F; --mint:#5CFFD1; --title-bg:#111111; --title-ink:#FFFFFF;
+  --on-pastel:#16130F; --dred:#9B1C1C; --mint:#5CFFD1; --title-bg:#111111; --title-ink:#FFFFFF;
   --c-central:#FFC9D6; --c-lateral:#FFE566; --c-canine:#B9F27C; --c-m1:#A9D8FF; --c-m2:#D5C2FF;
   --card-bg:#FFF7E6; --card-ink:#16130F; --card-muted:#6B5A46; --card-line:#E4D7BD; --card-black:#111111;
   --f-display:'Yeon Sung','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --f-body:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){ --bg:#17140F; --panel:#221E17; --ink:#F5EFE2; --muted:#B8AB94; --line:#3A3224; --focus:#F5EFE2; --label-bg:#F5EFE2; --label-ink:#16130F; color-scheme:dark; }
+  :root:not([data-theme="light"]){ --bg:#17140F; --panel:#221E17; --ink:#F5EFE2; --muted:#B8AB94; --line:#3A3224; --focus:#F5EFE2; --label-bg:#F5EFE2; --label-ink:#16130F; --dred:#FF9A9A; color-scheme:dark; }
 }
-:root[data-theme="dark"]{ --bg:#17140F; --panel:#221E17; --ink:#F5EFE2; --muted:#B8AB94; --line:#3A3224; --focus:#F5EFE2; --label-bg:#F5EFE2; --label-ink:#16130F; color-scheme:dark; }
+:root[data-theme="dark"]{ --bg:#17140F; --panel:#221E17; --ink:#F5EFE2; --muted:#B8AB94; --line:#3A3224; --focus:#F5EFE2; --label-bg:#F5EFE2; --label-ink:#16130F; --dred:#FF9A9A; color-scheme:dark; }
 
 *{box-sizing:border-box}
 body.focus{padding-block:10px 4px}
@@ -77,6 +77,10 @@ input:focus-visible,button:focus-visible,summary:focus-visible,a:focus-visible{o
 .chips button[aria-pressed=true]{background:var(--yellow);border-color:#16130F;color:var(--on-pastel)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .note{font-size:13px;color:var(--muted)}
+.dred{color:var(--dred);font-weight:700}
+.sharerow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn.small{min-height:40px;font-size:14px;padding:0 14px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--title-bg);color:var(--mint);border-radius:12px;padding:10px 16px;font-family:var(--f-display);font-size:15px;z-index:20;max-width:calc(100vw - 32px);text-align:center}
 .rule{margin:0;background:var(--bg);border:1.5px dashed var(--ink);border-radius:12px;padding:10px 12px;font-size:13.5px;line-height:1.6}
 .rule b:first-child{display:inline-block;background:var(--yellow);color:var(--on-pastel);border-radius:6px;padding:0 7px;margin-right:6px}
 .warn{font-size:13px;color:var(--red)}
@@ -150,6 +154,7 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
   <div class="chrome" id="intro" style="display:flex;flex-direction:column;gap:10px">
     <h3><a href="https://www.instagram.com/youbean.ko/" target="_blank" rel="noopener">@동글마미</a></h3>
     <h1><span class="hl">우리 아가 <b>첫 이</b>🦷 계산기</span></h1>
+    <div class="sharerow"><button type="button" class="btn ghost small" id="sharebtn">🔗 링크 공유</button></div>
     <p class="muted">첫 이가 난 시기만 넣으면, 나머지 이가 날 시기를 한 장 표로 계산해 드려요. 캡처해서 저장하세요.</p>
   </div>
 
@@ -229,20 +234,20 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
     <summary>이렇게 계산했어요</summary>
     <div class="body">
       <ol class="calc">
-        <li><b>치아별 평균 시기</b>: 한국·일본·중국 조사, 미국치과의사협회(ADA) 맹출표, 국제 메타분석에서 구한 값을 종합했어요. 첫 이의 평균은 7개월로 잡았어요.</li>
-        <li><b>우리 아기 속도</b>: 첫 이가 평균보다 N개월 빠르면, 나머지 이도 N개월의 약 0.6~0.9배만큼 같이 당겨서 계산해요. 느리면 같은 비율로 늦춰요.</li>
-        <li><b>100%가 아닌 이유</b>: 스웨덴 아기 212명을 18세까지 지켜본 연구에서 유치끼리 맹출 시기의 상관이 0.3~0.7(중간 정도)이었어요. 그래서 첫 이가 빨라도 어금니가 같은 만큼 빠르다고 보지 않아요.</li>
-        <li><b>막대 구간</b>: 한국 영유아 조사의 개인차(표준편차)로 만든 '3명 중 2명' 범위예요. 뒤쪽 이일수록 넓어요.</li>
+        <li><b>치아별 평균 시기</b>: 한국·일본·중국 조사, 미국치과의사협회(ADA) 맹출표, 국제 메타분석에서 구한 값을 종합해 정했어요. 첫 이의 평균은 7개월로 정했어요(중국 전국조사 중앙값 6.6~6.8개월, 한국 아래 앞니 평균 7.5개월, 일본 아래 앞니 중앙값 7.1~7.6개월 사이).</li>
+        <li><b>우리 아기 속도</b>: 첫 이가 평균(7개월)보다 N개월 빠르면, 나머지 이의 예상 시기도 치아에 따라 N개월의 약 0.6~0.9배만큼 당겨져요. 느리면 같은 비율로 늦춰져요. 이 비율은 '상관 × (그 이의 개인차 ÷ 첫 이의 개인차)'로 구했고, 첫 이의 개인차는 한국 아래 앞니 표준편차 1.77개월에 맞춰 1.8개월로 썼어요.</li>
+        <li><b>상관값</b>: 유치끼리 맹출 시기의 상관은 1이 아니라서, 첫 이의 차이를 그대로 옮기지 않고 위 비율로만 반영해요. 상관은 0.3~0.7 범위를 썼고, 나오는 순서 1번 이에 0.7, 10번 이에 0.3을 적용했어요. 그 사이 이들은 순서대로 같은 간격으로 줄였어요. 치아별 상관값을 직접 쓴 것은 아니에요.</li>
+        <li><b>막대 구간</b>: 예상값 ± 표준편차 1만큼이에요. 표준편차는 한국 영유아 조사(n=1,757)의 치아별 개인차에, 첫 이와의 상관을 반영해 줄인 값이에요. 값이 종 모양(정규분포)으로 퍼져 있다면 약 68%, 대략 3명 중 2명이 들어가는 폭이에요. 뒤쪽 이일수록 넓어요.</li>
       </ol>
-      <p class="note">정식 의료 도구가 아니라 위 자료를 이은 단순 모델이에요. 순서가 앞선 이일수록 상관 0.7에, 뒤쪽 이일수록 0.3에 가깝다고 가정한 부분은 제 가정이에요.</p>
+      <p class="note">정식 의료 도구가 아니라 위 자료로 만든 계산 모델이에요.</p>
       <ul class="src">
         <li>한국: 조영호, 대한소아치과학회지 4(1), 1977 (n=1,757) · Choi &amp; Yang, ASDC J Dent Child 2001 (n=1,070, 초록)</li>
         <li>일본: Dodo et al., Children (Basel) 2023 (n=1,690, 부모 관찰)</li>
         <li>중국: Zhang et al., Sci Rep 2024 (n=249,264, 첫 이 중앙값 6.6~6.8개월)</li>
         <li>미국: 미국치과의사협회(ADA) Primary Tooth Development</li>
         <li>국제: Muthu et al., Arch Oral Biol 2024 (42개 연구, n=42,109) · Merck Manual 수록 표</li>
-        <li>이 사이 상관: Hamano &amp; Hägg, Eur J Orthod 1988 (n=212, 초록 요약 기준)</li>
-        <li>확인일 2026-10-02</li>
+        <li>상관 0.3~0.7: Hamano &amp; Hägg, Eur J Orthod 1988;10(3):273-80 (스웨덴 아기 212명). 요약 자료로 확인했고 원문은 열람하지 못했어요</li>
+        <li>확인일 2026-10-02 ~ 10-05</li>
       </ul>
     </div>
   </details>
@@ -253,16 +258,17 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
       <li>'이가 났다'는 잇몸을 뚫고 이가 쌀알만큼이라도 눈에 보이기 시작한 때를 기준으로 했어요. 이 기준은 조사 연구들(잇몸을 뚫고 나온 부분이 하나라도 있으면 난 것으로 셈)과 같아요.</li>
       <li>예상은 평균에서 몇 달씩 벗어날 수 있어요. 막대 밖이어도 문제가 있다는 뜻은 아니에요.</li>
       <li>조산이었거나 건강 상태가 달랐다면 시기가 다를 수 있어요.</li>
-      <li>정보 공유용이며 진단이 아닙니다. 걱정되면 소아치과·소아과 전문의와 상담하세요.</li>
+      <li>나머지 이가 날 시기 계산은 추정치입니다. 상세한 내용은 <span class="dred">소아치과·소아과 전문의와 상담하세요.</span></li>
     </ul>
   </section>
 
   <section class="panel chrome cta" id="cta">
     <h2>다음 정보도 받아가세요</h2>
     <p class="muted">캡처한 표를 스토리에 올리고 @youbean.ko를 태그해 주세요. 우리 아기 첫 이는 몇 개월에 났는지 게시물 댓글로도 알려 주세요.</p>
-    <a class="btn" href="https://www.instagram.com/youbean.ko/" target="_blank" rel="noopener">@youbean.ko 팔로우</a>
+    <div class="sharerow"><a class="btn" href="https://www.instagram.com/youbean.ko/" target="_blank" rel="noopener">@youbean.ko 팔로우</a><button type="button" class="btn ghost" id="sharebtn2">🔗 링크 공유</button></div>
   </section>
 </div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
 
 <script>
 /* ---------- 데이터 ----------
@@ -414,6 +420,31 @@ function fitCard(){
 var focusOn = false;
 window.addEventListener('resize', function(){ if (focusOn) fitCard(); });
 
+var SHARE_URL = 'https://ybybgo.github.io/tooth-calculator/';
+var toastTimer = null;
+function toast(msg){
+  var t = document.getElementById('toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.hidden = true; }, 2600);
+}
+function shareLink(){
+  var data = {title:'우리 아가 첫 이🦷 계산기', text:'첫 이가 난 개월수만 넣으면 나머지 이가 날 시기를 한 장 표로 계산해 줘요', url:SHARE_URL};
+  if (navigator.share){
+    navigator.share(data).catch(function(e){ if (e && e.name !== 'AbortError') copyLink(); });
+    return;
+  }
+  copyLink();
+}
+function copyLink(){
+  function manual(){ toast('복사가 막혀 있어요. 주소를 직접 복사해 주세요: ' + SHARE_URL); }
+  try {
+    navigator.clipboard.writeText(SHARE_URL).then(function(){ toast('링크를 복사했어요'); }, function(){
+      var ta = document.createElement('textarea'); ta.value = SHARE_URL; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta);
+      if (ok) toast('링크를 복사했어요'); else manual();
+    });
+  } catch (e) { manual(); }
+}
+
 function buildKnown(){
   var host = document.getElementById('known');
   var list = TEETH.filter(function(t){ return t.id !== state.first; });
@@ -508,6 +539,8 @@ function calcDate(){
     window.scrollTo(0, 0);
   }
   document.getElementById('gobtn').addEventListener('click', showResult);
+  document.getElementById('sharebtn').addEventListener('click', shareLink);
+  document.getElementById('sharebtn2').addEventListener('click', shareLink);
   document.getElementById('backbtn').addEventListener('click', showInput);
 
   try {
