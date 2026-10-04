@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>우리 아가 첫 이🦷 계산기 | 젖니(유치) 언제언제 날까?</title>
-<meta name="description" content="우리 아기 젖니(유치), 언제언제 날까? 첫 이가 난 개월수만 넣으면 나머지 젖니 20개가 날 시기를 한 장 표로 계산해 줘요.">
+<title>우리 아가 첫 이🦷 계산기 | 아기 이빨🦷, 언제 어디서부터 나?</title>
+<meta name="description" content="아기 이빨, 언제 어디서부터 나? 첫 이가 난 개월수만 넣으면 나머지 젖니 20개가 날 시기를 한 장 표로 계산해 줘요.">
 <meta name="theme-color" content="#FFF7E6">
 <link rel="canonical" href="https://ybybgo.github.io/tooth-calculator/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%B7%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
-<meta property="og:title" content="우리 아가 첫 이🦷 계산기 | 젖니(유치) 언제언제 날까?">
-<meta property="og:description" content="우리 아기 젖니(유치), 언제언제 날까? 첫 이가 난 개월수만 넣으면 나머지 젖니 20개가 날 시기를 한 장 표로 계산해 줘요.">
+<meta property="og:title" content="우리 아가 첫 이🦷 계산기 | 아기 이빨🦷, 언제 어디서부터 나?">
+<meta property="og:description" content="아기 이빨, 언제 어디서부터 나? 첫 이가 난 개월수만 넣으면 나머지 젖니 20개가 날 시기를 한 장 표로 계산해 줘요.">
 <meta property="og:url" content="https://ybybgo.github.io/tooth-calculator/">
 <meta property="og:image" content="https://ybybgo.github.io/tooth-calculator/og.png">
 <meta property="og:image:width" content="1200">
@@ -164,7 +164,7 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
   <div class="chrome" id="intro" style="display:flex;flex-direction:column;gap:10px">
     <h3><a href="https://www.instagram.com/youbean.ko/" target="_blank" rel="noopener">@동글마미</a></h3>
     <h1><span class="hl">우리 아가 <b>첫 이</b>🦷 계산기</span></h1>
-    <p class="subt">우리 아기 <b>젖니(유치)</b>, 언제언제 날까?</p>
+    <p class="subt">아기 이빨🦷, <b>언제 어디서부터 나?</b></p>
     <div class="sharerow"><button type="button" class="btn ghost small" id="sharebtn">🔗 링크 공유</button></div>
     <p class="muted">첫 이가 난 개월수만 넣으면, 나머지 젖니 20개가 날 시기를 한 장 표로 계산해 드려요.</p>
   </div>
@@ -511,7 +511,7 @@ function saveBlob(blob){
 function needLib(){ if (typeof html2canvas !== 'function'){ toast('이미지를 만들 수 없어요. 화면을 캡처해 주세요'); return true; } return false; }
 function shareImage(){
   if (needLib()) return;
-  var text = '우리 아기 젖니(유치), 언제언제 날까? 첫 이🦷 계산기 @youbean.ko ' + SHARE_URL;
+  var text = '아기 이빨🦷, 언제 어디서부터 나? 첫 이🦷 계산기 @youbean.ko ' + SHARE_URL;
   function fallback(blob){
     saveBlob(blob);
     if (!inAppBrowser()) toast('이미지를 저장했어요. 카카오톡이나 인스타그램에서 보내거나 올려 주세요');
@@ -534,7 +534,7 @@ function toast(msg){
   clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.hidden = true; }, 2600);
 }
 function shareLink(){
-  var data = {title:'우리 아가 첫 이🦷 계산기', text:'우리 아기 젖니(유치), 언제언제 날까? 첫 이 난 개월수만 넣으면 계산해 줘요', url:SHARE_URL};
+  var data = {title:'우리 아가 첫 이🦷 계산기', text:'아기 이빨🦷, 언제 어디서부터 나? 첫 이 난 개월수만 넣으면 계산해 줘요', url:SHARE_URL};
   if (navigator.share){
     navigator.share(data).catch(function(e){ if (e && e.name !== 'AbortError') copyLink(); });
     return;
