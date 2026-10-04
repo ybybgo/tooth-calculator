@@ -235,7 +235,7 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
       </div>
       <div class="c-head"><span>순서</span><span>치아</span><span class="ax" id="ax"></span><span>예상</span></div>
       <div class="c-rows" id="rows"></div>
-      <div class="c-note"><span><i style="background:#111"></i>예상</span><span><i style="background:#1B9E3A"></i>실제 기록</span><span><b class="lgb"></b>3명 중 2명이 들어오는 범위</span></div>
+      <div class="c-note"><span><i style="background:#111"></i>예상</span><span><i style="background:#1B9E3A"></i>실제 기록</span><span><b class="lgb"></b>10명 중 9명쯤 들어오는 추정 범위</span></div>
       <div class="c-foot"><span>여러 연구 종합 추정 · 진단 아님</span></div>
     </div>
     <div class="actions" id="actions"><button type="button" class="btn" id="imgbtn">📤 이미지 공유 · 저장</button><p class="note" id="hint">스토리에 올리고 @youbean.ko를 태그해 주세요</p></div>
@@ -249,7 +249,7 @@ ul.src{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;fon
         <li><b>치아별 평균 시기</b>: 한국·일본·중국 조사, 미국치과의사협회(ADA) 맹출표, 국제 메타분석에서 구한 값을 종합해 정했어요. 첫 이의 평균은 7개월로 정했어요(중국 전국조사 중앙값 6.6~6.8개월, 한국 아래 앞니 평균 7.5개월, 일본 아래 앞니 중앙값 7.1~7.6개월 사이).</li>
         <li><b>우리 아기 속도</b>: 첫 이가 평균(7개월)보다 N개월 빠르면, 나머지 이의 예상 시기도 치아에 따라 N개월의 약 0.6~0.9배만큼 당겨져요. 느리면 같은 비율로 늦춰져요. 이 비율은 '상관 × (그 이의 개인차 ÷ 첫 이의 개인차)'로 구했고, 첫 이의 개인차는 한국 아래 앞니 표준편차 1.77개월에 맞춰 1.8개월로 썼어요.</li>
         <li><b>상관값</b>: 유치끼리 맹출 시기의 상관은 1이 아니라서, 첫 이의 차이를 그대로 옮기지 않고 위 비율로만 반영해요. 상관은 0.3~0.7 범위를 썼고, 나오는 순서 1번 이에 0.7, 10번 이에 0.3을 적용했어요. 그 사이 이들은 순서대로 같은 간격으로 줄였어요. 치아별 상관값을 직접 쓴 것은 아니에요.</li>
-        <li><b>막대 구간</b>: 예상값 ± 표준편차 1만큼이에요. 표준편차는 한국 영유아 조사(n=1,757)의 치아별 개인차에, 첫 이와의 상관을 반영해 줄인 값이에요. 값이 종 모양(정규분포)으로 퍼져 있다면 약 68%, 대략 3명 중 2명이 들어가는 폭이에요. 뒤쪽 이일수록 넓어요.</li>
+        <li><b>막대 구간</b>: 예상값 ± 표준편차 1.645배만큼이에요. 표준편차는 한국 영유아 조사(n=1,757)의 치아별 개인차에, 첫 이와의 상관을 반영해 줄인 값이에요. 값이 종 모양(정규분포)으로 퍼져 있다고 가정하면 약 90%, 대략 10명 중 9명이 들어가는 폭이에요. 실제 아기들로 검증한 수치는 아니고 추정이에요. 뒤쪽 이일수록 넓어요.</li>
       </ol>
       <p class="note">정식 의료 도구가 아니라 위 자료로 만든 계산 모델이에요.</p>
       <ul class="src">
@@ -304,7 +304,8 @@ var COLORS = {central:'#FFC9D6', lateral:'#FFE566', canine:'#B9F27C', m1:'#A9D8F
 var SIZES = {central:[44,50], lateral:[38,46], canine:[40,52], m1:[58,62], m2:[64,66]};
 var ORDER_TYPES = ['central','lateral','canine','m1','m2'];
 var MU_F = 7.0, SD_F = 1.8;
-var AX_MIN = 5, AX_MAX = 31;
+var AX_MIN = 5, AX_MAX = 35;
+var Z90 = 1.645; /* 정규분포 가정 시 양쪽 90% 구간 */
 var SAT = {central:'#F48FB1', lateral:'#FFC400', canine:'#7ED321', m1:'#4DA3FF', m2:'#9B7BFF'};
 var INK = '#2B2118';
 var GUM = {u:['#6FB6EA','#CBE8FF'], l:['#E8914F','#FFD9B8']};
@@ -334,7 +335,7 @@ function compute(st){
     if (known[t.id] != null) return {t:t, actual:true, est:known[t.id], lo:known[t.id], hi:known[t.id]};
     var r = rho(t.k), beta = r * t.sd / SD_F, sdc = t.sd * Math.sqrt(1 - r * r);
     var est = Math.max(t1, t.mu + beta * d);
-    return {t:t, actual:false, est:est, lo:Math.max(t1, est - sdc), hi:est + sdc};
+    return {t:t, actual:false, est:est, lo:Math.max(t1, est - Z90 * sdc), hi:est + Z90 * sdc};
   });
   return {d:d, rows:rows};
 }
